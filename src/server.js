@@ -12,7 +12,7 @@
 
 const express = require('express');
 const multer = require('multer');
-const { PDFParse } = require('pdf-parse');
+const pdfParse = require('pdf-parse');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
@@ -82,13 +82,12 @@ app.post('/api/extract-pdfs', upload.array('pdfs', 100), async (req, res) => {
         for (const file of req.files) {
             try {
                 const dataBuffer = fs.readFileSync(file.path);
-                const parser = new PDFParse({ data: dataBuffer });
-                const pdfData = await parser.getText();
+                const pdfData = await pdfParse(dataBuffer);
                 
                 const result = {
                     filename: file.originalname,
                     text: pdfData.text || '',
-                    pages: pdfData.total || pdfData.pages?.length || 1,
+                    pages: pdfData.numpages || 1,
                     info: {},
                     textLength: (pdfData.text || '').length
                 };
