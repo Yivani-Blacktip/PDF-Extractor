@@ -30,6 +30,8 @@
 
 <div align="center">
 
+![PDF Extractor Screenshot](public/pdf-extractor.png)
+
 *Clean, minimal interface for PDF text extraction*
 
 </div>
