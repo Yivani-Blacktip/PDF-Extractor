@@ -4,11 +4,11 @@
 
 **Extract text from multiple PDF files instantly**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+🌐 [**Live Demo**](https://yivani-blacktip.github.io/PDF-Extractor/)
+
+[![License: BSL 1.1](https://img.shields.io/badge/License-BSL%201.1-blue.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-14%2B-green)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express-4.x-lightgrey)](https://expressjs.com/)
-
-[Live Demo](https://yivani.github.io/pdf-text-extractor) · [Report Bug](https://github.com/yivani/pdf-text-extractor/issues) · [Request Feature](https://github.com/yivani/pdf-text-extractor/issues)
 
 </div>
 
@@ -16,129 +16,79 @@
 
 ## ✨ Features
 
-- 📁 **Batch Processing** - Upload and extract text from up to 100 PDFs at once
-- 🔍 **Smart Search** - Find text across line breaks and extra spaces
-- 🔄 **Undo/Redo** - Full edit history with keyboard shortcuts
+- 📁 **Batch Processing** - Extract text from up to 100 PDFs simultaneously
+- 🔍 **Smart Search** - Find text across line breaks and extra spaces with VS Code-like search
+- 🔄 **Undo/Redo** - Full edit history with 50 state buffer
 - 📝 **Text Transformations** - lowercase, UPPERCASE, Title Case, remove empty lines
+- 🎯 **Match Navigation** - Delete matches one by one with progress indicator
 - 💾 **Export** - Copy to clipboard or download as `.txt`
-- ⚡ **Fast & Private** - Processing happens locally, files are deleted after extraction
+- ⚡ **Fast & Private** - Client-side processing, files deleted after extraction
 
 ---
 
-## 🚀 Quick Start
+## 📸 Screenshot
 
-### Prerequisites
+<div align="center">
 
-- [Node.js](https://nodejs.org/) 14 or higher
-- npm or yarn
+*Clean, minimal interface for PDF text extraction*
 
-### Installation
+</div>
 
-```bash
-# Clone the repository
-git clone https://github.com/yivani/pdf-text-extractor.git
+---
 
-# Navigate to project directory
-cd pdf-text-extractor
+## 🛠️ How It Works
 
-# Install dependencies
-npm install
+### Architecture
 
-# Start the server
-npm start
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   Client    │────▶│   Express   │────▶│  PDF Parse  │
+│  (Browser)  │◀────│   Server    │◀────│   Library   │
+└─────────────┘     └─────────────┘     └─────────────┘
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+**Frontend**: Vanilla JavaScript with a clean, minimal UI inspired by modern code editors. Features include drag-and-drop file upload, VS Code-style search/replace, and floating navigation buttons.
 
----
+**Backend**: Node.js + Express handles file uploads via Multer, processes PDFs using pdf-parse library, and returns extracted text from all pages.
 
-## 📖 Usage
+**Key Technologies**:
+- **Inter** & **JetBrains Mono** fonts for clean typography
+- **SVG icons** for crisp rendering at any size
+- **CSS Grid/Flexbox** for responsive layout
+- **Regex-based search** with whitespace normalization
 
-### 1. Upload PDFs
-Drag and drop your PDF files or click to browse. Supports up to 100 files (50MB each).
+### Search Implementation
 
-### 2. Extract Text
-Click "Extract Text" to process all files. The app extracts text from **all pages** of each PDF.
+The search functionality uses a three-tier approach to find text across line breaks:
 
-### 3. Search & Edit
-Use the toolbar to:
-- **Find** (`Ctrl+F`) - Search with smart whitespace handling
-- **Replace** - Replace single or all matches
-- **Transform** - Change case, remove empty lines
-- **Undo/Redo** (`Ctrl+Z` / `Ctrl+Y`) - Full edit history
+1. **Exact Match** - Direct character-by-character comparison
+2. **Normalized Whitespace** - Treats multiple spaces/tabs/newlines as single space
+3. **Flexible Search** - Ignores whitespace entirely for matching text split across lines
 
-### 4. Export
-- **Copy** - Copy all text to clipboard
-- **Download** - Save as `.txt` file
+### Text Processing Pipeline
 
----
-
-## 🛠️ Tech Stack
-
-| Category | Technology |
-|----------|------------|
-| **Backend** | Node.js, Express |
-| **PDF Parsing** | pdf-parse |
-| **Frontend** | Vanilla JavaScript, CSS3 |
-| **Fonts** | Inter, JetBrains Mono |
-| **Icons** | SVG (Heroicons-style) |
+```
+PDF Upload → Server Validation → pdf-parse Extraction → 
+Text Concatenation → Client-side Editing → Export
+```
 
 ---
 
 ## 📁 Project Structure
 
 ```
-pdf-text-extractor/
-├── src/
-│   └── server.js          # Express server
+pdf-extractor/
 ├── public/
-│   ├── index.html         # Main HTML
-│   ├── css/
-│   │   └── style.css      # Stylesheet
-│   ├── js/
-│   │   └── app.js         # Frontend logic
+│   ├── index.html         # Main application UI
+│   ├── css/style.css      # Minimalist stylesheet
+│   ├── js/app.js          # Frontend logic & search
 │   └── assets/
-│       └── favicon.svg    # App icon
-├── uploads/               # Temporary storage
-├── .gitignore
-├── package.json
-└── README.md
+│       └── favicon.svg    # PDF icon
+├── src/
+│   └── server.js          # Express server with PDF processing
+├── uploads/               # Temporary storage (auto-cleaned)
+└── package.json
 ```
-
----
-
-## 🌐 GitHub Pages Deployment
-
-This project can be deployed to **GitHub Pages** for the frontend. Note: The PDF extraction requires a backend server.
-
-### Option 1: Full Deployment (Backend + Frontend)
-
-Deploy to services like:
-- [Render](https://render.com)
-- [Railway](https://railway.app)
-- [Heroku](https://heroku.com)
-- [Vercel](https://vercel.com)
-
-### Option 2: GitHub Pages (Frontend Only)
-
-For static hosting on GitHub Pages:
-
-```bash
-# Create a gh-pages branch
-git checkout -b gh-pages
-
-# Remove server-only files
-git rm src/server.js package.json .gitignore
-
-# Move public files to root
-git mv public/* .
-
-# Commit and push
-git commit -m "Deploy to GitHub Pages"
-git push origin gh-pages
-```
-
-Then enable GitHub Pages in repository settings.
 
 ---
 
@@ -149,55 +99,42 @@ Then enable GitHub Pages in repository settings.
 | `Ctrl + F` | Open search |
 | `Ctrl + Z` | Undo |
 | `Ctrl + Y` | Redo |
-| `Ctrl + Shift + Z` | Redo (alternative) |
-| `Enter` | Next search match |
-| `Shift + Enter` | Previous search match |
+| `Enter` | Next match |
+| `Shift + Enter` | Previous match |
 | `Esc` | Close search |
 
 ---
 
-## 📝 Environment Variables
+## 🌐 Live Application
 
-Create a `.env` file for optional configuration:
+**🔗 https://yivani-blacktip.github.io/PDF-Extractor/**
 
-```env
-PORT=3000                    # Server port (default: 3000)
-MAX_FILE_SIZE=52428800       # Max file size in bytes (50MB)
-MAX_FILES=100                # Max files per upload
-```
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
+The frontend is deployed via GitHub Pages. The PDF extraction requires the backend server to be running.
 
 ---
 
 ## 👤 Author
 
-**Yivani**
+**Domenic Grothe (Yivani Blacktip)**
 - Website: [yivani.dev](https://yivani.dev)
 - Email: contact@yivani.dev
-- GitHub: [@yivani](https://github.com/yivani)
+- GitHub: [@Yivani-Blacktip](https://github.com/Yivani-Blacktip)
+
+---
+
+## 📄 License
+
+Business Source License 1.1 (BSL 1.1)
+
+Copyright (c) 2026 Domenic Grothe (Yivani Blacktip)
+
+This software is available under the Business Source License 1.1. The Licensed Work will become available under the Apache License, Version 2.0 four years from the publication date.
+
+See [LICENSE](LICENSE) for full terms.
 
 ---
 
 <div align="center">
-
-**[⬆ Back to Top](#-pdf-text-extractor)**
 
 Made with ❤️ by [Yivani](https://yivani.dev)
 
