@@ -23,6 +23,7 @@ jobs:
       run: |
         mkdir -p _site
         cp -r public/* _site/
+        cp public/CNAME _site/ 2>/dev/null || true
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3

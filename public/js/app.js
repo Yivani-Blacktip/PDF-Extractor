@@ -367,9 +367,11 @@ async function uploadFiles() {
     try {
         processingStatus.textContent = 'Uploading files...';
         
-        const apiUrl = window.location.port === '3000' 
-            ? '/api/extract-pdfs' 
-            : 'http://localhost:3000/api/extract-pdfs';
+        // Auto-detect API endpoint based on environment
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const apiUrl = isLocalhost 
+            ? 'http://localhost:3000/api/extract-pdfs'
+            : '/api/extract-pdfs';
 
         processingStatus.textContent = 'Extracting text...';
         

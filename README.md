@@ -4,7 +4,7 @@
 
 **Extract text from multiple PDF files instantly**
 
-🌐 [**Live Demo**](https://yivani-blacktip.github.io/PDF-Extractor/)
+🌐 [**Live Demo**](https://pdf-extractor.yivani.dev)
 
 [![License: BSL 1.1](https://img.shields.io/badge/License-BSL%201.1-blue.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-14%2B-green)](https://nodejs.org/)
@@ -107,7 +107,7 @@ pdf-extractor/
 
 ## 🌐 Live Application
 
-**🔗 https://yivani-blacktip.github.io/PDF-Extractor/**
+**🔗 https://pdf-extractor.yivani.dev/**
 
 The frontend is deployed via GitHub Pages. The PDF extraction requires the backend server to be running.
 
